@@ -1,0 +1,30 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:		cloudshell2-fan
+# Required-Start:	$remote_fs $syslog
+# Required-Stop:	$remote_fs $syslog
+# Default-Start:	2 3 4 5
+# Default-Stop: 	0 1 6
+# Short-Description: Cloudshell2 fan onoff service
+# Description:
+### END INIT INFO
+
+case "$1" in
+  start|status)
+	# No-op
+	i2cset -y 1 0x60 0x05 0x00
+	;;
+  restart|reload|force-reload)
+	i2cset -y 1 0x60 0x05 0x00
+	exit 3
+	;;
+  stop)
+	i2cset -y 1 0x60 0x05 0x05
+	;;
+  *)
+	i2cset -y 1 0x60 0x05 0x05
+	exit 3
+	;;
+esac
+
+:
